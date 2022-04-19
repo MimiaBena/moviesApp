@@ -1,81 +1,58 @@
-import { makeStyles } from '@material-ui/core/styles';
-
-export default makeStyles(() => ({
-  
-    title:{
-        textAlign: 'center'
+import { makeStyles, alpha } from '@material-ui/core/styles';
+const drawerWidth = 0;
+export default makeStyles((theme) => ({
+  appBar: {
+    boxShadow: 'none',
+    borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
     },
-    formComponent:{
-        margin:12,
-        
-      },
+    
+
+  },
+    title:{
+      flexGrow: 1,
+      alignItems: 'center',
+      display: 'flex',
+      textDecoration: 'none',
+    },
+    image: {
+      marginRight: '10px',
+      borderRadius: '50%'
+    },
+   
         formContainer: {
             textAlign: 'center'
           },
           form: {
-            width: 400,
-            margin: '0 auto'
-          },
-          inpuText:{
-            padding: '1 10',
-            borderRadius: '10 10 0 0',
+            textAlign: 'center',
+            width: '100%',
+            textAlign: 'center',
             border: 'none',
-            fontSize: '1.5',
-            display: 'block',
-            margin: '0 auto',
-            width: 220,
-            outline: 'none',
-            textAlign: 'center'
+            display: 'inline-block',
+            
           },
-          TextSubmit:{
-            padding: '1 10',
-            width: 220,
-            borderRadius: '0 0 10 10',
+          inText:{
+             border: 'none',
+             height: '30px',
+             width: '30%',
+             borderRadius: '20%',
+          },
+          inputSub:{
             border: 'none',
-            background: 'green',
-            color: 'white',
-            fontSize: '1.5',
-            cursor: 'pointer',
-            zIndex: 10,
-            position: 'relative'
-        },
-        btnCortContainer: {
-            margin: '8 auto',
-            width: 220,
-            display: 'flex',
-            justifyContent: 'space-around',
-            cursor: 'pointer'
-        },
-        btnSortgoodToBad:{
-            borderRadius: '10 0 0 10',
-            background: 'bleu',
-          width: 110,
-          transition: 0.3,
-          position: 'relative'
+            borderRadius: '30%',
+            width: '10%',
+            height: '30px',
+            marginLeft: '5px'
+          },
+          selectStyle:{
+               width: '30%',
+          },
+       
+        
+      
+      
     
-        },
-        btnSortBadToGood:{
-            borderRadius: '0 10 10 0',
-            background: 'bleu',
-          width: 110,
-          transition: 0.3,
-          position: 'relative'
-    
-        },
-        badToGoodSpan:{
-            transform: 'translateY(-50%) rotate(90deg)',
-            left: 16,
-            osition: 'absolute',
-            top: '50%'
-    
-    
-        },
-    
-        goodToBadSpan:{
-            transform: 'translateY(-50%) rotate(-90deg)',
-            right: 18,
-            position: 'absolute',
-            top: '50%'
-    
-        }    
+          
 }));
