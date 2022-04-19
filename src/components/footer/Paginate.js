@@ -2,7 +2,7 @@ import React from 'react';
 import useStyle from './style.js';
 
 
-const Paginate = ({ postsPerPage, totalPosts, paginate }) => {
+const Paginate = ({ postsPerPage, totalPosts, paginate, paginatePre, paginateNext }) => {
   const classes = useStyle();
   const pageNumbers = [];
 
@@ -16,11 +16,11 @@ const Paginate = ({ postsPerPage, totalPosts, paginate }) => {
 
 
   }
-  
+
   return (
-    <nav>
+    <nav className={classes.headerContainer}>
       <ul className={classes.pagination}>
-        <li className={classes.pageItem}><a className={classes.pageItem} onClick={() => paginate(1)} >&laquo;</a></li>
+        <li className={classes.pageItem}><a className={classes.pageItem} onClick={() => paginatePre()} >&laquo;</a></li>
            {pageNumbers.map(number => (
           <li key={number} className={classes.pageItem}>
             <a onClick={() => paginate(number)} href='!#' className={classes.pageItem}>
@@ -28,7 +28,7 @@ const Paginate = ({ postsPerPage, totalPosts, paginate }) => {
             </a>
           </li>
         ))}
-        <li className={classes.pageItem}><a className={classes.pageItem} type="button" >&raquo;</a></li>
+        <li className={classes.pageItem}><a className={classes.pageItem} type="button" onClick={() =>paginateNext()} >&raquo;</a></li>
       </ul>
     </nav>
   );

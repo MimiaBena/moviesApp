@@ -1,11 +1,11 @@
-import React from 'react';
+import React , {useState} from 'react';
 import { Typography, Button, Card, CardActions, CardMedia, CardContent, Grid } from '@material-ui/core';
 import { LikeButton, UpdownButton, Provider } from '@lyket/react';
 import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
 import useStyles from './style';
-const CardItem = ({ movie, onUpdateCartQty, onRemoveFromCart }) => {
+const CardItem = ({ movie, handleUpdateLikes,handleUpdateDisLikes, onRemoveFromCart, likeActive, dislikeActive }) => {
     const classes = useStyles();
-
+     const [color, setColor] = useState('Black');
 
 
     return (
@@ -22,9 +22,11 @@ const CardItem = ({ movie, onUpdateCartQty, onRemoveFromCart }) => {
             <CardActions className={classes.cardActions}>
                 <Button variant='contained' type='button' color='secondary' onClick={() => { onRemoveFromCart(movie.id); }}>Remove</Button>
                 <div className={classes.buttons}>
-                    <Button type='button' onClick={() => onUpdateCartQty(movie.id, movie.likes - 1)}><AiOutlineLike /></Button>
+                    <Button type='button' 
+                    onClick={ ()=> handleUpdateLikes((movie.id))}><AiOutlineLike /></Button>
                     <Typography>{movie.likes}/{movie.dislikes}</Typography>
-                    <Button type='button' onClick={() => onUpdateCartQty(movie.id, movie.dislikes + 1)}><AiOutlineDislike /> </Button>
+                    <Button type='button' 
+                     onClick={() =>{ handleUpdateDisLikes(movie.id)}}><AiOutlineDislike /> </Button>
                 </div>
             </CardActions>
         </Card>

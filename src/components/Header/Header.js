@@ -1,18 +1,12 @@
+import { MenuItem, InputLabel, Select, Grid } from '@material-ui/core';
 import React from 'react';
 import useStyles from './style';
 
 const Header = ({movies,value, handleSubmit, handleSearch, handleChange}) => {
     const classes = useStyles();
-    const arr = ['Comedy', 'Animation', 'Drame', 'Thrill' ];
-    const arr2 = movies.
-    map((category, id) => (category.category)).
-    filter((item, id) => movies.
-    map((category, id) => (category.category)).indexOf(item) === id).
-    map((category, index) => category);
-    const arr3 = arr2.filter(e => arr.includes(e))
-
+    const arr = ['Comedy', 'Animation', 'Drame', 'Thrill' ]
     return (
-        <div>
+        <div >
             <h1 className={classes.title} >Movie App</h1>
             <div className={classes.formContainer}>
                 <form className={classes.form} onSubmit={handleSubmit}>
@@ -21,16 +15,20 @@ const Header = ({movies,value, handleSubmit, handleSearch, handleChange}) => {
 
                 </form>
 
-
-                <select onChange={handleChange} >
-                    <option >Choose From List</option>
+                <InputLabel>Shipping Options</InputLabel>
+                <Select onChange={handleChange}  >
+                    
                     {
-                        arr3.
+                        movies.
+                              map((category, id) => (category.category)).
+                              filter((item, id) => movies.
+                              map((category, id) => (category.category)).indexOf(item) === id).
+                              map((category, index) => category).
                               map((category, index) => (
-                                <option key={index} value={category}>{category}</option>
+                                <MenuItem key={index} value={category}>{category}</MenuItem>
                             ))
                     }
-                </select>
+                </Select>
             </div>
         </div>
     );

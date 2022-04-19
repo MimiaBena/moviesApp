@@ -1,3 +1,4 @@
+import { green, red } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
@@ -17,5 +18,15 @@ export default makeStyles(() => ({
   buttons: {
     display: 'flex',
     alignItems: 'center',
+  },
+  activeLike: {
+    backgroundColor:'red',
+    color: red,
+
+  },
+  noactiveLike: {
+    
+    color: green,
+
   },
 }));

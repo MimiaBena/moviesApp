@@ -1,17 +1,15 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
-import { useState, useEffect } from "react";
-import { movies$ } from '../../assets/movies';
 import CardItem from '../Card/CardItem';
 
 import useStyles from './style';
-import Paginate from '../footer/Paginate';
 
 
 
 
 
-const Form = ({ currentPosts, handleUpdateCartQty, handleRemoveFromCart }) => {
+
+const Form = ({ currentPosts, handleUpdateLikes,handleUpdateDisLikes, handleRemoveFromCart,likeActive, dislikeActive }) => {
     const classes = useStyles();
 
     return (
@@ -23,8 +21,12 @@ const Form = ({ currentPosts, handleUpdateCartQty, handleRemoveFromCart }) => {
                         currentPosts.
                             map((moviee) => (
                                 <Grid item xs={12} sm={6} md={4} lg={3} key={moviee.id}>
-                                    <CardItem key={moviee.id} movie={moviee} onUpdateCartQty={handleUpdateCartQty}
-                                        onRemoveFromCart={handleRemoveFromCart} />
+                                    <CardItem key={moviee.id} movie={moviee}
+                                     handleUpdateLikes={handleUpdateLikes}
+                                     handleUpdateDisLikes={handleUpdateDisLikes}
+                                     onRemoveFromCart={handleRemoveFromCart} 
+                                    
+                                        />
                                 </Grid>
                             ))
                     }
