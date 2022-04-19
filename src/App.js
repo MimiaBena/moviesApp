@@ -9,6 +9,7 @@ import Form from './components/Form/Form';
 
 
 
+
 const App = () => {
   const classes = useStyle();
 
@@ -19,7 +20,7 @@ const App = () => {
   const [itemOffset, setItemOffset] = useState(0);
   const [likeActive, setLikeActive] = useState(false);
   const [disLikeActive, setDisLikeActive] = useState(false);
-  const [BackgroundColor, setBackgroundColor] =useState( "BLACK");
+  const [BackgroundColor, setBackgroundColor] = useState("BLACK");
 
 
   const pageNumbers = [];
@@ -28,7 +29,7 @@ const App = () => {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = mov.slice(indexOfFirstPost, indexOfLastPost);
-  
+
 
   useEffect(() => {
     const moviesIds = async () => {
@@ -38,19 +39,23 @@ const App = () => {
     }
     moviesIds();
   }, [])
-   
+
   const handleSubmit = (e) => {
-    setList(e.target.list)
+    setList(e.target.value)
+     if(list){
+      const newlistMovies = mov.filter((title) => title.category.toLowerCase().includes(list) || title.title.toLowerCase().includes(list) );
+      
+        setMov(newlistMovies);
+        setList(e.target.list)
+        e.preventDefault();
+  
+     }
     
-    const newlistMovies = mov.filter((title, id) => title.category.toLowerCase().includes(list));
-       setMov(newlistMovies);   
-       setList(e.target.list)
-       e.preventDefault();
   }
-  const handleChange = async(e) => {
-   const mo =  mov.filter((category, id) => category.category === e.target.value);
+  const handleChange = async (e) => {
+    const mo = mov.filter((category, id) => category.category === e.target.value);
     setMov(mo);
-     e.preventDefault();
+    e.preventDefault();
   }
   const handleSearch = (e) => {
     setList(e.target.value);
@@ -62,17 +67,16 @@ const App = () => {
   }
   // Change page
   const paginate = pageNumbers => setCurrentPage(pageNumbers);
-  const paginatePre = (pageNumbers) =>{
-    if( currentPage == 1 )
-    {  setCurrentPage(currentPage) }
+  const paginatePre = (pageNumbers) => {
+    if (currentPage == 1) { setCurrentPage(currentPage) }
     else
-      setCurrentPage(currentPage-1) 
+      setCurrentPage(currentPage - 1)
   };
   console.log(pageNumbers.length)
-  const l =pageNumbers.length;
-  const paginateNext = () =>{  
-        if(currentPage == l) {setCurrentPage(currentPage) }
-        else setCurrentPage(currentPage+1)
+  const l = pageNumbers.length;
+  const paginateNext = () => {
+    if (currentPage == l) { setCurrentPage(currentPage) }
+    else setCurrentPage(currentPage + 1)
   }
 
   const handleRemoveFromCart = (e) => {
@@ -83,102 +87,89 @@ const App = () => {
     const index = newMovie.findIndex(item => item.id === (e));
     const remove = window.confirm("Are you sur?")
     if (remove) {
-    newMovie.splice(index, 1);
+      newMovie.splice(index, 1);
       setMov(newMovie);
     }
   };
-    
-  
- 
- 
-  
 
-  const likeF = (id) =>{
+
+
+
+
+
+  const likeF = (id) => {
     const newMovie = mov;
-    if(likeActive){
+    if (likeActive) {
       setLikeActive(false);
-     
       const newArr = newMovie.map((obj) => {
-        
-       if (obj.id === id) {
-        return { ...obj, likes: obj.likes-1 };
-             }
-       return obj;
-       
-     });
-       setMov(newArr)  ;
-     
-
-    }else{
+        if (obj.id === id) {
+          return { ...obj, likes: obj.likes - 1 };
+        }
+        return obj;
+      });
+      setMov(newArr);
+    } else {
       setLikeActive(true);
       const newArr = newMovie.map((obj) => {
-       if (obj.id === id) {
-        return { ...obj, likes: obj.likes+1 };
-             }
-       return obj;
-       
-     });
-    
-       setMov(newArr)  
-      if(disLikeActive){
+        if (obj.id === id) {
+          return { ...obj, likes: obj.likes + 1 };
+        }
+        return obj;
+      });
+
+      setMov(newArr)
+      if (disLikeActive) {
         setDisLikeActive(false);
-        
         const newArr1 = newMovie.map((obj) => {
-         if (obj.id === id) {
-          return { ...obj, likes: obj.likes+1 , dislikes: obj.dislikes-1};
-               }
-         return obj;
-         
-       });
-         setMov(newArr1)  
-      }
-
-    }
-  }
-  
-
-  const disLikeF = (id) =>{
-    const newMovie = mov;
-    if(disLikeActive){
-      setDisLikeActive(false);
-    
-   const newArr = newMovie.map((obj) => {
-    if (obj.id === id) {
-     return { ...obj, dislikes: obj.dislikes-1 };
+          if (obj.id === id) {
+            return { ...obj, likes: obj.likes + 1, dislikes: obj.dislikes - 1 };
           }
-    return obj;
-    
-  });
-    setMov(newArr)  
+          return obj;
+        });
+        setMov(newArr1)
+      }
+    }
+  }
 
-    }else{
+
+  const disLikeF = (id) => {
+    const newMovie = mov;
+    if (disLikeActive) {
+      setDisLikeActive(false);
+
+      const newArr = newMovie.map((obj) => {
+        if (obj.id === id) {
+          return { ...obj, dislikes: obj.dislikes - 1 };
+        }
+        return obj;
+      });
+      setMov(newArr)
+    } else {
       setDisLikeActive(true);
-      
       const newArr1 = newMovie.map((obj) => {
-       if (obj.id === id) {
-        return { ...obj,dislikes: obj.dislikes+1 };
-             }
-       return obj;
-       
-     });
-       setMov(newArr1)  
-      if(likeActive){
+        if (obj.id === id) {
+          return { ...obj, dislikes: obj.dislikes + 1 };
+        }
+        return obj;
+      });
+      setMov(newArr1)
+      if (likeActive) {
         setLikeActive(false);
-        
         const newArr = newMovie.map((obj) => {
-         if (obj.id === id) {
-          return { ...obj, likes: obj.likes-1 , dislikes: obj.dislikes+1};
-               }
-         return obj;    
-       });
-         setMov(newArr)  
+          if (obj.id === id) {
+            return { ...obj, likes: obj.likes - 1, dislikes: obj.dislikes + 1 };
+          }
+          return obj;
+        });
+        setMov(newArr)
       }
 
     }
   }
-  
+
 
   return (
+    
     <div>
       <Header
         movies={mov}
@@ -188,11 +179,11 @@ const App = () => {
         handleChange={handleChange}
       />
       <Form
-         currentPosts={currentPosts}
-         handleRemoveFromCart={handleRemoveFromCart}
-         handleUpdateLikes={likeF}
-         handleUpdateDisLikes={disLikeF}
-        
+        currentPosts={currentPosts}
+        handleRemoveFromCart={handleRemoveFromCart}
+        handleUpdateLikes={likeF}
+        handleUpdateDisLikes={disLikeF}
+
       />
       <Paginate
         postsPerPage={postsPerPage}
@@ -202,6 +193,7 @@ const App = () => {
         paginateNext={paginateNext}
       />
     </div>
+   
   );
 };
 

@@ -1,9 +1,7 @@
 import { MenuItem, InputLabel, Select, Grid } from '@material-ui/core';
 import React from 'react';
-
-import {AppBar, Toolbar,  IconButton, Badge, Menu, Typography} from '@material-ui/core';
-import {ShoppingCart} from '@material-ui/icons';
-
+import { Link} from 'react-router-dom';
+import {AppBar, Toolbar, Typography} from '@material-ui/core';
 import logo from './acean.jpg';
 import useStyles from './style';
 
@@ -15,8 +13,8 @@ const Header = ({movies,value, handleSubmit, handleSearch, handleChange}) => {
             <h1 className={classes.title} >Movie App</h1>
             <AppBar position='fixed' className={classes.appBar} color='inherit'>
                 <Toolbar>
-                    <Typography   variant='h6' className={classes.title} color='inherit'>
-                        <img src={logo} alt="Movies" height="25px" className={classes.image} />
+                    <Typography component={Link} to="*" variant='h6' className={classes.title} color='inherit'>
+                        <img src={logo} alt="Movies" height="30px" className={classes.image} />
                         I♥Movies
                     </Typography>
                     

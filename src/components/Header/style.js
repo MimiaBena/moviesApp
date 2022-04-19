@@ -16,6 +16,7 @@ export default makeStyles((theme) => ({
       alignItems: 'center',
       display: 'flex',
       textDecoration: 'none',
+      fontSize: '12px'
     },
     image: {
       marginRight: '10px',
@@ -36,18 +37,18 @@ export default makeStyles((theme) => ({
           inText:{
              border: 'none',
              height: '30px',
-             width: '30%',
+             textAlign: 'center',
              borderRadius: '20%',
           },
           inputSub:{
             border: 'none',
             borderRadius: '30%',
-            width: '10%',
             height: '30px',
-            marginLeft: '5px'
+            marginLeft: '5px',
+            marginBottom: '5px',
           },
           selectStyle:{
-               width: '30%',
+               width: '20%',
           },
        
         
