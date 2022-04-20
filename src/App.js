@@ -3,24 +3,19 @@ import { useState, useEffect } from 'react';
 import { movies$ } from './assets/movies';
 import Header from './components/Header/Header';
 import Paginate from './components/footer/Paginate';
-import useStyle from './style';
 import Form from './components/Form/Form';
 
 
 
-
-
 const App = () => {
-  const classes = useStyle();
+  
 
   const [mov, setMov] = useState([]);
-  const [newMov, setNewMov] = useState([]);
   const [list, setList] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemOffset, setItemOffset] = useState(0);
   const [likeActive, setLikeActive] = useState(false);
   const [disLikeActive, setDisLikeActive] = useState(false);
-  const [BackgroundColor, setBackgroundColor] = useState("BLACK");
+  const [tex, setText] = useState([]);
 
 
   const pageNumbers = [];
@@ -35,32 +30,45 @@ const App = () => {
     const moviesIds = async () => {
       const movies = await movies$;
       setMov(movies);
-      setNewMov(movies);
     }
     moviesIds();
-  }, [])
-
-  const handleSubmit = (e) => {
-    setList(e.target.value)
-     if(list){
-      const newlistMovies = mov.filter((title) => title.category.toLowerCase().includes(list) || title.title.toLowerCase().includes(list) );
-      
-        setMov(newlistMovies);
-        setList(e.target.list)
-        e.preventDefault();
+  }, []);
   
-     }
-    
-  }
-  const handleChange = async (e) => {
-    const mo = mov.filter((category, id) => category.category === e.target.value);
+  //Change handle
+  const handleChange = (e) => {
+    const {
+      target: { value },
+    } = e;
+    setText(
+      typeof value === 'string' ? value.split(',') : value,
+    );
+    const g = e.target.value;
+    console.log(g)
+    //const mo = movies.filter((category, id) => category.category === e.target.value);
+    const mo= mov.filter((category, id) => {
+      return g.find((itemB) => {
+        return category.category === itemB;
+      })
+    });
     setMov(mo);
     e.preventDefault();
   }
+
   const handleSearch = (e) => {
     setList(e.target.value);
   }
-
+  const handleSubmit = (e) => {
+    setList(e.target.value)
+    if (list) {
+      const newlistMovies = mov.filter((title) => title.category.toLowerCase().
+        includes(list) || title.title.
+          toLowerCase().
+          includes(list));
+      setMov(newlistMovies);
+      setList(e.target.list)
+      e.preventDefault();
+    }
+  }
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pageNumbers.push(i);
@@ -72,7 +80,6 @@ const App = () => {
     else
       setCurrentPage(currentPage - 1)
   };
-  console.log(pageNumbers.length)
   const l = pageNumbers.length;
   const paginateNext = () => {
     if (currentPage == l) { setCurrentPage(currentPage) }
@@ -91,11 +98,6 @@ const App = () => {
       setMov(newMovie);
     }
   };
-
-
-
-
-
 
   const likeF = (id) => {
     const newMovie = mov;
@@ -132,17 +134,19 @@ const App = () => {
   }
 
 
+
+
   const disLikeF = (id) => {
     const newMovie = mov;
     if (disLikeActive) {
       setDisLikeActive(false);
-
       const newArr = newMovie.map((obj) => {
         if (obj.id === id) {
-          return { ...obj, dislikes: obj.dislikes - 1 };
+          return { ...obj, dislikes: obj.dislikes - 1}
         }
-        return obj;
+        return obj     
       });
+      
       setMov(newArr)
     } else {
       setDisLikeActive(true);
@@ -163,26 +167,30 @@ const App = () => {
         });
         setMov(newArr)
       }
-
     }
   }
 
 
   return (
-    
+
     <div>
       <Header
         movies={mov}
         value={list || ''}
-        handleSubmit={handleSubmit}
         handleSearch={handleSearch}
         handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        valueCat={tex}
+
+
       />
       <Form
         currentPosts={currentPosts}
         handleRemoveFromCart={handleRemoveFromCart}
         handleUpdateLikes={likeF}
         handleUpdateDisLikes={disLikeF}
+        likeActive={likeActive}
+        dislikeActive={disLikeActive}
 
       />
       <Paginate
@@ -193,7 +201,7 @@ const App = () => {
         paginateNext={paginateNext}
       />
     </div>
-   
+
   );
 };
 

@@ -22,11 +22,13 @@ export default makeStyles(() => ({
   activeLike: {
     backgroundColor:'red',
     color: red,
-
   },
-  noactiveLike: {
-    
+  noactiveLike: {   
     color: green,
-
   },
+  styleButton: {
+    borderRadius: '50%',
+    width: '5px',
+    margin: '3px'
+  }
 }));

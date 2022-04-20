@@ -7,11 +7,12 @@ const Home = () => {
             <Router>
                 <Routes>
                     <Route
-                        exact path="*" element={<App />}
+                         path="/" element={<App />}
                     />
-
+                    <Route
+                         path="*" element={<App />}
+                    />
                 </Routes>
-
             </Router>
 
         </div>

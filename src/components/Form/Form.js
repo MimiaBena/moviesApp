@@ -5,15 +5,10 @@ import CardItem from '../Card/CardItem';
 import useStyles from './style';
 
 
-
-
-
-
 const Form = ({ currentPosts, handleUpdateLikes,handleUpdateDisLikes, handleRemoveFromCart,likeActive, dislikeActive }) => {
     const classes = useStyles();
 
     return (
-
         <div className={classes.formComponent}>
             <div className='result'>
                 <Grid container justifyContent="center" spacing={4}>
@@ -25,8 +20,9 @@ const Form = ({ currentPosts, handleUpdateLikes,handleUpdateDisLikes, handleRemo
                                      handleUpdateLikes={handleUpdateLikes}
                                      handleUpdateDisLikes={handleUpdateDisLikes}
                                      onRemoveFromCart={handleRemoveFromCart} 
-                                    
-                                        />
+                                     likeActive={likeActive}
+                                     dislikeActive={dislikeActive} 
+                                    />
                                 </Grid>
                             ))
                     }
