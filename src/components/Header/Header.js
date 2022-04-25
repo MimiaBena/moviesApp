@@ -43,9 +43,12 @@ const Header = ({ movie }) => {
           
       }
       console.log(term)
-      const handleChangeSelected = (term) =>{
+      
+      const handleChangeSelected = (e) =>{
+          e.preventDefault();
+        console.log(term)
         
-        
+       
         dispatch(filterCategory(term))
         
          
@@ -75,9 +78,9 @@ const Header = ({ movie }) => {
                         <input className={classes.inText} type="text" placeholder="Shoose your Film" value={listSearch} onChange={handleSearch}/>
                         <input className={classes.inputSub} type="submit"  value="Search" />
                     </form>
-
+                    
                     <InputLabel>Filtring Movies</InputLabel>
-                   
+        
                     <Select className={classes.selectStyle} onChange={searchCategoryMovie }
                        multiple value={term}
                         input={<OutlinedInput style={{ color: 'blue' }} label="Category" />}
@@ -87,7 +90,9 @@ const Header = ({ movie }) => {
                             }
 
                             return selected.join(', ');
-                        }}>
+                        }}
+                        
+                        >
                         <MenuItem disabled >
                             <em>Category</em>
                         </MenuItem>
@@ -97,7 +102,10 @@ const Header = ({ movie }) => {
                             ))
                         }
                     </Select>
-                    
+                   
+                 <button  onClick={handleChangeSelected}>Save</button>
+                 <button onClick={handleSubmit}>Return</button>
+                
                 </Toolbar>
             </AppBar>
         </div>

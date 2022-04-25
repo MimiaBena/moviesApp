@@ -4,8 +4,8 @@ export const moviesSlice = createSlice({
     name: "movies",
     initialState: {
         listSearch: '',
-        categorySelected: [],
         movies: null,
+        
     },
     reducers: {
         setMoviesData: (state, { payload }) => {
