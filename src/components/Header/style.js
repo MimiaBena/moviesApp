@@ -49,7 +49,13 @@ export default makeStyles((theme) => ({
           selectStyle:{
                width: '20%',
           },
-       
+          btnSelect: {
+               marginLeft: '12px',
+               border: 'none',
+               background: 'white',
+               color: 'blue',
+               
+          },
         
       
       

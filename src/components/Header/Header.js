@@ -101,10 +101,11 @@ const Header = ({ movie }) => {
                                 <MenuItem key={index} value={category}>{category}</MenuItem>
                             ))
                         }
+                         <button className={classes.btnSelect} onClick={handleChangeSelected}>Filter</button>
+                         <button className={classes.btnSelect} component={Link} to="/">Return</button>
                     </Select>
                    
-                 <button  onClick={handleChangeSelected}>Save</button>
-                 <button onClick={handleSubmit}>Return</button>
+                 
                 
                 </Toolbar>
             </AppBar>
