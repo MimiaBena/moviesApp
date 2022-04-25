@@ -1,42 +1,65 @@
-import { useState, useEffect } from 'react';
-import { MenuItem, AppBar, Toolbar, Typography, InputLabel } from '@material-ui/core';
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { MenuItem, AppBar, Toolbar, Typography, InputLabel, FormControl } from '@material-ui/core';
+import React, {useRef, useState} from 'react';
+import { Link } from 'react-router-dom';
 import Select from '@mui/material/Select';
 import OutlinedInput from '@mui/material/OutlinedInput';
 
 import logo from './acean.jpg';
 import useStyles from './style';
-import { movies$ } from '../../assets/movies';
+import { useDispatch, useSelector } from "react-redux";
+import { submitMovie, searchMovie, filterCategory , searchCategoryMovie} from './../../feature/movies.slice';
 
 
 
-
-
-
-const Header = ({ movies, value, valueCat, handleSearch, handleSubmit, handleChange }) => {
+const Header = ({ movie }) => {
     const classes = useStyles();
-
-    const [mov, setMov] = useState(movies);
-    const arr = ['Comedy', 'Animation', 'Drame', 'Thrill'];
-
-    useEffect(() => {
-        const moviesIds = async () => {
-            const movies = await movies$;
-            setMov(movies);
-        }
-        moviesIds();
-    }, [])
-
-    const tableCategory = mov.
+    const dispatch = useDispatch();
+    const listSearch = useSelector((state) => state.movies.listSearch)
+    const categorySelected =useSelector((state) => state.movies.categorySelected);
+    const [term, setTerm] = useState([]);
+    
+   
+   
+    const formRef = useRef();
+    //const arr = ['Comedy', 'Animation', 'Drame', 'Thrill'];
+    const handleSubmit =  (e) => {
+        e.preventDefault();
+        dispatch((submitMovie(listSearch)));
+        
+        
+    }
+    const handleSearch = (e) => {
+        dispatch(searchMovie(e.target.value));
+      }
+      const searchCategoryMovie = (e)=>{
+          
+        const {
+            target: { value },
+          } = e;
+          setTerm(
+            typeof value === 'string' ? value.split(',') : value,
+          );
+         
+          
+      }
+      console.log(term)
+      const handleChangeSelected = (term) =>{
+        
+        
+        dispatch(filterCategory(term))
+        
+         
+      }
+     
+    const tableCategory = movie?.
         map((category, id) => (category.category)).
-        filter((item, id) => mov.
+        filter((item, id) => movie.
             map((category) => (category.category)).indexOf(item) === id).
         map((category) => category).
         map((category, index) => (
             category
         ));
-
+    
     return (
         <div >
             <AppBar position='fixed' className={classes.appBar} color='inherit'>
@@ -48,14 +71,15 @@ const Header = ({ movies, value, valueCat, handleSearch, handleSubmit, handleCha
                         I♥Movies
                     </Typography>
 
-                    <form className={classes.form} onSubmit={handleSubmit}>
-                        <input className={classes.inText} type="text" value={value} placeholder="Shoose your Film" id="input-search" onChange={handleSearch} />
-                        <input className={classes.inputSub} type="submit" value="Search" />
+                    <form className={classes.form} onSubmit={handleSubmit} ref={formRef}>
+                        <input className={classes.inText} type="text" placeholder="Shoose your Film" value={listSearch} onChange={handleSearch}/>
+                        <input className={classes.inputSub} type="submit"  value="Search" />
                     </form>
 
                     <InputLabel>Filtring Movies</InputLabel>
-                    <Select onChange={handleChange} className={classes.selectStyle}
-                        multiple value={valueCat}
+                   
+                    <Select className={classes.selectStyle} onChange={searchCategoryMovie }
+                       multiple value={term}
                         input={<OutlinedInput style={{ color: 'blue' }} label="Category" />}
                         renderValue={(selected) => {
                             if (selected.length === 0) {
@@ -64,16 +88,16 @@ const Header = ({ movies, value, valueCat, handleSearch, handleSubmit, handleCha
 
                             return selected.join(', ');
                         }}>
-                        <MenuItem disabled value="">
+                        <MenuItem disabled >
                             <em>Category</em>
                         </MenuItem>
                         {
-                            tableCategory.
-                                map((category, index) => (
-                                    <MenuItem key={index} value={category}>{category}</MenuItem>
-                                ))
+                            tableCategory?.map((category, index) => (
+                                <MenuItem key={index} value={category}>{category}</MenuItem>
+                            ))
                         }
                     </Select>
+                    
                 </Toolbar>
             </AppBar>
         </div>

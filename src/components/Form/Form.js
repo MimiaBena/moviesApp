@@ -1,27 +1,26 @@
 import { Grid } from '@material-ui/core';
-import React from 'react';
+import React, {useEffect} from 'react';
 import CardItem from '../Card/CardItem';
+import { movies$ } from '../../movies';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 import useStyles from './style';
 
 
-const Form = ({ currentPosts, handleUpdateLikes,handleUpdateDisLikes, handleRemoveFromCart,likeActive, dislikeActive }) => {
+const Form = ({currentMovies}) => {
     const classes = useStyles();
-
+  
+ 
+  
     return (
         <div className={classes.formComponent}>
             <div className='result'>
                 <Grid container justifyContent="center" spacing={4}>
                     {
-                        currentPosts.
-                            map((moviee) => (
-                                <Grid item xs={12} sm={6} md={4} lg={3} key={moviee.id}>
-                                    <CardItem key={moviee.id} movie={moviee}
-                                     handleUpdateLikes={handleUpdateLikes}
-                                     handleUpdateDisLikes={handleUpdateDisLikes}
-                                     onRemoveFromCart={handleRemoveFromCart} 
-                                     likeActive={likeActive}
-                                     dislikeActive={dislikeActive} 
+                        currentMovies?.map((movie, id) => (
+                                <Grid item xs={12} sm={6} md={4} lg={3} key={movie.id}>
+                                    <CardItem key={movie.id} movie={movie}
                                     />
                                 </Grid>
                             ))

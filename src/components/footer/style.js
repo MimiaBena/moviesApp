@@ -13,10 +13,7 @@ export default makeStyles(() => ({
     float: 'left',
     padding: '2px 6px',
     textDecoration: 'none',
-    listStyle: 'none',
-    color: 'black',
-    
-    
+    listStyle: 'none',   
   },
   pagination: {
     

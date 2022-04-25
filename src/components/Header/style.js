@@ -1,4 +1,4 @@
-import { makeStyles, alpha } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 const drawerWidth = 0;
 export default makeStyles((theme) => ({
   appBar: {
@@ -29,7 +29,6 @@ export default makeStyles((theme) => ({
           form: {
             textAlign: 'center',
             width: '100%',
-            textAlign: 'center',
             border: 'none',
             display: 'inline-block',
             
