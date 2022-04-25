@@ -1,20 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import useStyle from './style.js';
 
 
-const Paginate = ({ postsPerPage, totalPosts, paginate, paginatePre, paginateNext }) => {
+const Paginate = ({pageNumbers,paginateNext, paginatePre, paginate }) => {
   const classes = useStyle();
-  const pageNumbers = [];
-
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-    pageNumbers.push(i);
-  }
 
   return (
     <nav className={classes.headerContainer}>
       <ul className={classes.pagination}>
         <li className={classes.pageItem}><a className={classes.pageItem} onClick={() => paginatePre()} >&laquo;</a></li>
-        {pageNumbers.map(number => (
+        {pageNumbers?.map(number => (
           <li key={number} className={classes.pageItem}>
             <a onClick={() => paginate(number)} className={classes.pageItem}>
               {number}
