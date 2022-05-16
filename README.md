@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # moviesApp
 =======
 # Getting Started with Create React App
