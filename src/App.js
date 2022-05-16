@@ -29,9 +29,6 @@ const App = () => {
   }, []);
   
   const [currentPage, setCurrentPage] = useState(1);
-  
-  
- 
   const totalPosts = currentMovies?.length;
   const postsPerPage = 4;
   const pageNumbers = [];
@@ -53,18 +50,12 @@ const App = () => {
     if (currentPage == l) { setCurrentPage(currentPage) }
     else setCurrentPage(currentPage + 1)
   }
-
-
-
-
   return (
 
     <div>
         <Header movie={currentMovies} />
         <Form currentMovies={currentPosts}/>
-        <Paginate pageNumbers={pageNumbers} paginateNext={paginateNext} paginatePre={paginatePre} paginate={paginate}  />
-       
-      
+        <Paginate pageNumbers={pageNumbers} paginateNext={paginateNext} paginatePre={paginatePre} paginate={paginate}  />   
     </div>
 
   );
